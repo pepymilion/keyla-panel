@@ -30,20 +30,24 @@
   <script type="module">
     import { getAllSlip } from './get-slip.js';
 
-    const tbody = document.getElementById('slip-body');
-    const data = await getAllSlip();
+    async function loadSlip() {
+      const tbody = document.getElementById('slip-body');
+      const data = await getAllSlip();
 
-    if (data.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="3">Tidak ada data slip.</td></tr>';
-    } else {
-      tbody.innerHTML = data.map(item => `
-        <tr>
-          <td>${item.tanggal}</td>
-          <td>Rp ${item.pemasukan.toLocaleString('id-ID')}</td>
-          <td>Rp ${item.pengeluaran.toLocaleString('id-ID')}</td>
-        </tr>
-      `).join('');
+      if (!data || data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="3">Tidak ada data slip.</td></tr>';
+      } else {
+        tbody.innerHTML = data.map(item => `
+          <tr>
+            <td>${item.tanggal}</td>
+            <td>Rp ${item.pemasukan.toLocaleString('id-ID')}</td>
+            <td>Rp ${item.pengeluaran.toLocaleString('id-ID')}</td>
+          </tr>
+        `).join('');
+      }
     }
+
+    loadSlip(); // 👈 ini wajib dipanggil
   </script>
 </body>
 </html>
