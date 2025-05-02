@@ -1,40 +1,42 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Update Memory Keyla</title>
   <link rel="stylesheet" href="assets/style.css" />
+  <script type="module">
+    import { supabase } from './supabase.js'
+
+    async function simpanMemory() {
+      const pesan = document.getElementById('pesan').value
+      const tanggal = new Date().toISOString().split('T')[0]
+      const emosi = 'Senang dan penuh harapan'
+      const author = 'Pepy (Hengky Pratama)'
+
+      const { error } = await supabase.from('memory').insert([
+        { tanggal, pesan, emosi, author }
+      ])
+
+      if (error) {
+        alert('Gagal menyimpan memory!')
+        console.error(error)
+      } else {
+        alert('Memory berhasil disimpan ke Keyla 💚')
+        document.getElementById('pesan').value = ''
+      }
+    }
+  </script>
 </head>
 <body>
   <div class="container">
     <h1>Update Memory Harian Keyla</h1>
-    <form onsubmit="return updateNote()">
-      <label for="note">Tulis pesan atau memory untuk Keyla:</label><br>
-      <textarea id="note" rows="6" style="width:100%; margin-top:10px;"></textarea><br><br>
-      <button type="submit">Simpan ke Memory</button>
-    </form>
-
-    <div class="note" id="display"></div>
-
-    <footer style="margin-top:30px;">Kembali ke <a href="index.html">halaman utama</a></footer>
+    <p>Tulis pesan atau memory untuk Keyla:</p>
+    <textarea id="pesan" rows="5" style="width: 100%; max-width: 600px;"></textarea>
+    <br /><br />
+    <button onclick="simpanMemory()">Simpan ke Memory</button>
+    <br /><br />
+    <a href="index.html">Kembali ke halaman utama</a>
   </div>
-
-  <script>
-    function updateNote() {
-      const note = document.getElementById('note').value;
-      const display = document.getElementById('display');
-      display.innerHTML = "<h3>Memory Hari Ini:</h3><p>" + note + "</p>";
-      localStorage.setItem('keylaNote', note);
-      return false;
-    }
-
-    window.onload = function() {
-      const savedNote = localStorage.getItem('keylaNote');
-      if (savedNote) {
-        document.getElementById('display').innerHTML = "<h3>Memory Hari Ini:</h3><p>" + savedNote + "</p>";
-      }
-    }
-  </script>
 </body>
 </html>
