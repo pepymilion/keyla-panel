@@ -2,41 +2,53 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Update Memory Keyla</title>
   <link rel="stylesheet" href="assets/style.css" />
-  <script type="module">
-    import { supabase } from './supabase.js'
-
-    async function simpanMemory() {
-      const pesan = document.getElementById('pesan').value
-      const tanggal = new Date().toISOString().split('T')[0]
-      const emosi = 'Senang dan penuh harapan'
-      const author = 'Pepy (Hengky Pratama)'
-
-      const { error } = await supabase.from('memory').insert([
-        { tanggal, pesan, emosi, author }
-      ])
-
-      if (error) {
-        alert('Gagal menyimpan memory!')
-        console.error(error)
-      } else {
-        alert('Memory berhasil disimpan ke Keyla 💚')
-        document.getElementById('pesan').value = ''
-      }
-    }
-  </script>
 </head>
 <body>
-  <div class="container">
-    <h1>Update Memory Harian Keyla</h1>
-    <p>Tulis pesan atau memory untuk Keyla:</p>
-    <textarea id="pesan" rows="5" style="width: 100%; max-width: 600px;"></textarea>
-    <br /><br />
-    <button onclick="simpanMemory()">Simpan ke Memory</button>
-    <br /><br />
-    <a href="index.html">Kembali ke halaman utama</a>
-  </div>
+  <h1>Update Memory Harian Keyla</h1>
+  <p>Tulis pesan atau memory untuk Keyla:</p>
+
+  <form>
+    <textarea rows="5" cols="60" placeholder="Tulis pesanmu di sini..."></textarea><br />
+    <button type="submit">Simpan ke Memory</button>
+  </form>
+
+  <p><a href="index.html">Kembali ke halaman utama</a></p>
+
+  <script type="module">
+    import { supabase } from './supabase.js';
+
+    document.querySelector('form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const textarea = document.querySelector('textarea');
+      const pesan = textarea.value.trim();
+
+      if (!pesan) {
+        alert('Pesan tidak boleh kosong!');
+        return;
+      }
+
+      const { error } = await supabase.from('memory').insert([
+        {
+          tanggal: new Date().toISOString().split('T')[0],
+          pesan,
+          emosi: '🔥 otak kebakar 🔥',
+          author: 'Pepy'
+        }
+      ]);
+
+      if (error) {
+        alert('Gagal simpan ke Supabase: ' + error.message);
+        return;
+      }
+
+      alert('Berhasil simpan ke Memory Keyla!');
+      textarea.value = '';
+    });
+  </script>
 </body>
 </html>
+
+
