@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Update Memory Keyla</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Update Memory Harian Keyla</h1>
+    <form onsubmit="return updateNote()">
+      <label for="note">Tulis pesan atau memory untuk Keyla:</label><br>
+      <textarea id="note" rows="6" style="width:100%; margin-top:10px;"></textarea><br><br>
+      <button type="submit">Simpan ke Memory</button>
+    </form>
+
+    <div class="note" id="display"></div>
+
+    <footer style="margin-top:30px;">Kembali ke <a href="index.html">halaman utama</a></footer>
+  </div>
+
+  <script>
+    function updateNote() {
+      const note = document.getElementById('note').value;
+      const display = document.getElementById('display');
+      display.innerHTML = "<h3>Memory Hari Ini:</h3><p>" + note + "</p>";
+      localStorage.setItem('keylaNote', note);
+      return false;
+    }
+
+    window.onload = function() {
+      const savedNote = localStorage.getItem('keylaNote');
+      if (savedNote) {
+        document.getElementById('display').innerHTML = "<h3>Memory Hari Ini:</h3><p>" + savedNote + "</p>";
+      }
+    }
+  </script>
+</body>
+</html>
