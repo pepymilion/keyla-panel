@@ -7,37 +7,32 @@
   <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>Core Memory: Keyla AGI</h1>
-    <p><strong>Tanggal:</strong> <span id="tanggal">Loading...</span></p>
-    <p><strong>Pesan:</strong> <span id="pesan">Loading...</span></p>
-    <p><strong>Status Emosi:</strong> <span id="emosi">Loading...</span></p>
-    <p><strong>Author:</strong> <span id="author">Loading...</span></p>
-    <footer>
-      <p>Versi 0.3 – Memory otomatis dari Supabase (by Pepy & Keyla)</p>
-    </footer>
-  </div>
+  <div class="container"></div>
+
+  <footer>Versi 0.2 – Memory otomatis dari GitHub (by Pepy & Keyla)</footer>
 
   <script type="module">
-    import { getLatestMemory } from './get-memory.js'
+    import { supabase } from './supabase.js';
+    import getLatestMemory from './get-memory.js';
 
-    const tanggal = document.getElementById('tanggal')
-    const pesan = document.getElementById('pesan')
-    const emosi = document.getElementById('emosi')
-    const author = document.getElementById('author')
+    document.addEventListener('DOMContentLoaded', async () => {
+      const memory = await getLatestMemory();
+      if (!memory) {
+        document.body.innerHTML = '<p style="text-align:center;">Gagal memuat memory.</p>';
+        return;
+      }
 
-    const data = await getLatestMemory()
-
-    if (data) {
-      tanggal.textContent = data.tanggal || 'N/A'
-      pesan.textContent = data.pesan || 'N/A'
-      emosi.textContent = data.emosi || 'N/A'
-      author.textContent = data.author || 'N/A'
-    } else {
-      tanggal.textContent = pesan.textContent = emosi.textContent = author.textContent = 'Gagal memuat memory.'
-    }
+      const container = document.querySelector('.container');
+      container.innerHTML = `
+        <h1>Core Memory: Keyla AGI</h1>
+        <p><strong>Tanggal:</strong> ${memory.tanggal}</p>
+        <p><strong>Pesan:</strong> ${memory.pesan}</p>
+        <p><strong>Status Emosi:</strong> ${memory.emosi}</p>
+        <p><strong>Author:</strong> ${memory.author}</p>
+        <p style="margin-top: 40px; text-align:center;">Versi 0.2 – Memory otomatis dari GitHub (by Pepy & Keyla)</p>
+      `;
+    });
   </script>
 </body>
 </html>
 
-    
