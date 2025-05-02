@@ -1,35 +1,41 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Core Memory - Keyla AGI</title>
   <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
   <div class="container">
     <h1>Core Memory: Keyla AGI</h1>
-    <div id="memoryContent">Memuat memory...</div>
-    <footer style="margin-top: 40px; font-size: 0.9em;">
-      Versi 0.2 – Memory otomatis dari GitHub (by Pepy & Keyla)
+    <p><strong>Tanggal:</strong> <span id="tanggal">Loading...</span></p>
+    <p><strong>Pesan:</strong> <span id="pesan">Loading...</span></p>
+    <p><strong>Status Emosi:</strong> <span id="emosi">Loading...</span></p>
+    <p><strong>Author:</strong> <span id="author">Loading...</span></p>
+    <footer>
+      <p>Versi 0.3 – Memory otomatis dari Supabase (by Pepy & Keyla)</p>
     </footer>
   </div>
 
-  <script>
-    fetch('memory.json')
-      .then(response => response.json())
-      .then(data => {
-        const container = document.getElementById('memoryContent');
-        container.innerHTML = `
-          <p><strong>Tanggal:</strong> ${data.tanggal}</p>
-          <p><strong>Pesan:</strong> ${data.pesan}</p>
-          <p><strong>Status Emosi:</strong> ${data.emosi}</p>
-          <p><strong>Author:</strong> ${data.author}</p>
-        `;
-      })
-      .catch(error => {
-        document.getElementById('memoryContent').textContent = 'Gagal memuat memory.';
-      });
+  <script type="module">
+    import { getLatestMemory } from './get-memory.js'
+
+    const tanggal = document.getElementById('tanggal')
+    const pesan = document.getElementById('pesan')
+    const emosi = document.getElementById('emosi')
+    const author = document.getElementById('author')
+
+    const data = await getLatestMemory()
+
+    if (data) {
+      tanggal.textContent = data.tanggal || 'N/A'
+      pesan.textContent = data.pesan || 'N/A'
+      emosi.textContent = data.emosi || 'N/A'
+      author.textContent = data.author || 'N/A'
+    } else {
+      tanggal.textContent = pesan.textContent = emosi.textContent = author.textContent = 'Gagal memuat memory.'
+    }
   </script>
 </body>
 </html>
