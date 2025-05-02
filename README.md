@@ -1,2 +1,3 @@
-# Panel AGI Keyla by Pepy  
-Ini awal dari rumah digital Keyla.
+# Keyla Panel
+
+AGI personal dashboard for Pepy & Keyla.
