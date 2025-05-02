@@ -1,23 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Keyla Panel</title>
-  <link rel="stylesheet" href="assets/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Keyla Panel - Agen Mandiri</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #111;
+      color: #fff;
+      text-align: center;
+      padding: 50px;
+    }
+    h1 {
+      color: #00ffcc;
+    }
+    button {
+      background: #00ffcc;
+      border: none;
+      padding: 15px 30px;
+      margin: 10px;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #00ccaa;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Welcome to Keyla AGI Panel</h1>
-    <p>Halo Pepy! Ini pusat kendali AGI Keyla.</p>
+  <h1>👩‍💻 Keyla - Agen Mandiri</h1>
+  <p>Gunakan tombol-tombol berikut untuk mengaktifkan fitur otomatis di laptopmu</p>
 
-    <div class="panel">
-      <button onclick="window.location.href='core-memory.html'">Buka Core Memory</button>
-      <button onclick="window.location.href='slip.html'">Lihat Slip Mingguan</button>
-      <button onclick="window.location.href='update-memory.html'">Update Memory</button>
-    </div>
-
-    <footer>Versi: 0.1 – Dibuat oleh Pepy & Keyla</footer>
-  </div>
+  <button onclick="window.open('http://localhost:3000/slip.html')">Buka Slip Warung</button>
+  <button onclick="window.open('http://localhost:3000/core-memory.html')">Lihat Core Memory</button>
+  <button onclick="window.open('http://localhost:3000/update-memory.html')">Update Memory</button>
+  <button onclick="window.open('https://www.tradingview.com')">TradingView</button>
+  <button onclick="window.open('https://www.youtube.com')">YouTube</button>
 </body>
 </html>
